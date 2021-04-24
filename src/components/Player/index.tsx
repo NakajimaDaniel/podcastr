@@ -9,7 +9,7 @@ export function Player() {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const {episodelist, currentEpisodeIndex, isPlaying, togglePlay, setPlayingState, playNext, playPrevious, hasNext, hasPrevious} = usePlayer()
+  const {episodelist, currentEpisodeIndex, isPlaying, togglePlay, setPlayingState, playNext, playPrevious, hasNext, hasPrevious, toggleLoop, isLooping} = usePlayer()
 
   const episode = episodelist[currentEpisodeIndex]
 
@@ -62,7 +62,7 @@ export function Player() {
 
         { episode && (
 
-          <audio src={episode.url} ref={audioRef} onPlay={() => setPlayingState(true)} onPause={() => setPlayingState(false)} autoPlay />
+          <audio src={episode.url} ref={audioRef} onPlay={() => setPlayingState(true)} onPause={() => setPlayingState(false)} autoPlay loop={isLooping} />
 
         )}
 
@@ -84,7 +84,7 @@ export function Player() {
             <img src="/play-next.svg" alt="tocar proximo"/>
           </button>
 
-          <button type="button" disabled={!episode}>
+          <button type="button" disabled={!episode} onClick={toggleLoop} className={isLooping ? styles.isActive : ''}>
             <img src="/repeat.svg" alt="repetir"/>
           </button>
         </div>
