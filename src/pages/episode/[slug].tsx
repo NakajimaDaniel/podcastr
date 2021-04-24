@@ -9,6 +9,7 @@ import { convertDurationToTimeString } from '../../utils/convertDurationToTimeSt
 import ptBr from 'date-fns/locale/pt-BR'
 import styles from './episode.module.scss'
 import Image from 'next/image'
+import { PlayerContext, usePlayer } from '../../contexts/PlayerContext';
 
 
 type Episode = {
@@ -31,6 +32,8 @@ export default function Episode({ episode }: EpisodeProps) {
 
   const router = useRouter();
 
+  const { play } = usePlayer();
+
 
   return (
     <div className={styles.episode}>
@@ -44,7 +47,7 @@ export default function Episode({ episode }: EpisodeProps) {
 
         <Image width={700} height={160} src={episode.thumbnail} objectFit="cover"/>
 
-        <button type="button">
+        <button type="button" onClick={() => play(episode)}>
           <img src="/play.svg" alt="play"/>
         </button>
 
